@@ -373,7 +373,10 @@ export default function Index() {
             <div className="font-display text-xl font-bold gradient-text uppercase tracking-widest mb-1">
               Молодёжка
             </div>
-            <div className="font-body text-white/30 text-sm">г. Ваш город · ул. Примерная, 1</div>
+            <div className="flex items-center gap-1.5 font-body text-white/40 text-sm mt-1">
+              <Icon name="MapPin" size={13} />
+              г. Суворов, ул. Садовая, 5
+            </div>
           </div>
           <div className="flex items-center gap-6">
             {["ВКонтакте", "Telegram", "Instagram"].map((soc) => (
