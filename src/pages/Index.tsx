@@ -1,8 +1,15 @@
 import { useState } from "react";
 import Icon from "@/components/ui/icon";
 
-const HERO_IMG = "https://cdn.poehali.dev/projects/c53c6671-4310-44c2-a454-6b05e871f911/files/a465bf58-932d-4ce7-8441-7bdee3357f24.jpg";
-const EVENT_IMG = "https://cdn.poehali.dev/projects/c53c6671-4310-44c2-a454-6b05e871f911/files/0b6695f1-28f0-4eb9-9a93-b808c07e8352.jpg";
+const HERO_IMG = "https://cdn.poehali.dev/projects/c53c6671-4310-44c2-a454-6b05e871f911/bucket/64da7180-1199-474f-8b8a-919bf3496b3e.jpeg";
+const EVENT_IMG = "https://cdn.poehali.dev/projects/c53c6671-4310-44c2-a454-6b05e871f911/bucket/d470ec43-1887-44a6-8bd3-3b244da27a62.jpeg";
+
+const GALLERY = [
+  { url: "https://cdn.poehali.dev/projects/c53c6671-4310-44c2-a454-6b05e871f911/bucket/d470ec43-1887-44a6-8bd3-3b244da27a62.jpeg", caption: "Косплей-вечеринка" },
+  { url: "https://cdn.poehali.dev/projects/c53c6671-4310-44c2-a454-6b05e871f911/bucket/64da7180-1199-474f-8b8a-919bf3496b3e.jpeg", caption: "Голос поколения" },
+  { url: "https://cdn.poehali.dev/projects/c53c6671-4310-44c2-a454-6b05e871f911/bucket/9db1eb82-aea7-472f-ba0c-48268b70532e.jpeg", caption: "Путешествие в мир сказок" },
+  { url: "https://cdn.poehali.dev/projects/c53c6671-4310-44c2-a454-6b05e871f911/bucket/8c634609-5741-4f84-b319-c2c9fb4cb792.jpeg", caption: "Волонтёрство" },
+];
 
 const CATEGORIES = ["Все", "Мастер-классы", "Концерты", "Спорт", "Волонтёрство", "Образование"];
 
@@ -232,6 +239,29 @@ export default function Index() {
               <div className="font-body text-white/50 text-sm">{stat.label}</div>
             </div>
           ))}
+        </div>
+
+        {/* GALLERY */}
+        <div className="mt-20">
+          <div className="text-sm font-semibold tracking-[0.3em] uppercase mb-6 text-center"
+            style={{ color: "var(--neon-green)" }}>
+            Наши моменты
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {GALLERY.map((photo, i) => (
+              <div key={i} className="group relative overflow-hidden rounded-2xl aspect-square cursor-pointer">
+                <img
+                  src={photo.url}
+                  alt={photo.caption}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{ background: "linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%)" }}>
+                  <span className="font-body text-white text-sm font-semibold">{photo.caption}</span>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
