@@ -102,7 +102,7 @@ export default function Index() {
         style={{ background: "rgba(10,10,10,0.85)", backdropFilter: "blur(20px)", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
         <button onClick={() => scrollTo("hero")} className="font-display text-xl font-bold tracking-widest uppercase">
           <span className="gradient-text">МП</span>
-          <span className="text-white/70 ml-2 text-sm font-body font-normal tracking-wide">Молодёжное пространство</span>
+          <span className="text-white/70 ml-2 text-sm font-body font-normal tracking-wide">Молодёжка</span>
         </button>
         <div className="hidden md:flex items-center gap-8">
           {[{ label: "О нас", id: "about" }, { label: "События", id: "events" }].map((item) => (
@@ -163,7 +163,7 @@ export default function Index() {
           </h1>
 
           <p className="font-body text-white/60 text-lg md:text-xl max-w-xl mx-auto mb-10 leading-relaxed">
-            Молодёжное пространство — живой хаб для творчества, спорта, общения и крутых событий твоего города
+            Молодёжка — живой хаб для творчества, спорта, общения и крутых событий твоего города
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -338,7 +338,7 @@ export default function Index() {
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
             <div className="font-display text-xl font-bold gradient-text uppercase tracking-widest mb-1">
-              Молодёжное пространство
+              Молодёжка
             </div>
             <div className="font-body text-white/30 text-sm">г. Ваш город · ул. Примерная, 1</div>
           </div>
