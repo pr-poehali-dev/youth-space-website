@@ -1,14 +1,360 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import Icon from "@/components/ui/icon";
 
-const Index = () => {
+const HERO_IMG = "https://cdn.poehali.dev/projects/c53c6671-4310-44c2-a454-6b05e871f911/files/a465bf58-932d-4ce7-8441-7bdee3357f24.jpg";
+const EVENT_IMG = "https://cdn.poehali.dev/projects/c53c6671-4310-44c2-a454-6b05e871f911/files/0b6695f1-28f0-4eb9-9a93-b808c07e8352.jpg";
+
+const CATEGORIES = ["Все", "Мастер-классы", "Концерты", "Спорт", "Волонтёрство", "Образование"];
+
+const EVENTS = [
+  {
+    id: 1,
+    title: "Стендап-баттл молодых комиков",
+    date: "3 мая",
+    time: "19:00",
+    category: "Концерты",
+    color: "var(--neon-pink)",
+    emoji: "🎤",
+    seats: 120,
+    desc: "Открытый микрофон для начинающих и опытных стендаперов города",
+  },
+  {
+    id: 2,
+    title: "Граффити-воркшоп на открытом воздухе",
+    date: "5 мая",
+    time: "12:00",
+    category: "Мастер-классы",
+    color: "var(--neon-orange)",
+    emoji: "🎨",
+    seats: 30,
+    desc: "Научись уличному искусству с профессиональными художниками",
+  },
+  {
+    id: 3,
+    title: "Турнир по стритболу 3×3",
+    date: "7 мая",
+    time: "10:00",
+    category: "Спорт",
+    color: "var(--neon-green)",
+    emoji: "🏀",
+    seats: 64,
+    desc: "Командный турнир по уличному баскетболу среди молодёжи города",
+  },
+  {
+    id: 4,
+    title: "Хакатон: умный город",
+    date: "10 мая",
+    time: "09:00",
+    category: "Образование",
+    color: "var(--neon-purple)",
+    emoji: "💻",
+    seats: 50,
+    desc: "48 часов, чтобы создать проект для городской среды будущего",
+  },
+  {
+    id: 5,
+    title: "Весенний субботник — парк «Молодёжный»",
+    date: "12 мая",
+    time: "10:00",
+    category: "Волонтёрство",
+    color: "#4ADE80",
+    emoji: "🌿",
+    seats: 200,
+    desc: "Вместе сделаем наш парк ещё красивее и уютнее",
+  },
+  {
+    id: 6,
+    title: "Open Air: живая музыка на крыше",
+    date: "17 мая",
+    time: "18:00",
+    category: "Концерты",
+    color: "var(--neon-pink)",
+    emoji: "🎸",
+    seats: 80,
+    desc: "Лучшие молодёжные группы города — закат, музыка, атмосфера",
+  },
+];
+
+const ABOUT_STATS = [
+  { value: "3000+", label: "участников", color: "var(--neon-orange)" },
+  { value: "150+", label: "мероприятий в год", color: "var(--neon-purple)" },
+  { value: "8 лет", label: "работаем для вас", color: "var(--neon-green)" },
+];
+
+export default function Index() {
+  const [activeCategory, setActiveCategory] = useState("Все");
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const filtered = activeCategory === "Все"
+    ? EVENTS
+    : EVENTS.filter((e) => e.category === activeCategory);
+
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    setMenuOpen(false);
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4 color-black text-black">Добро пожаловать!</h1>
-        <p className="text-xl text-gray-600">тут будет отображаться ваш проект</p>
-      </div>
+    <div className="noise-bg min-h-screen bg-background text-foreground overflow-x-hidden">
+
+      {/* NAV */}
+      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4"
+        style={{ background: "rgba(10,10,10,0.85)", backdropFilter: "blur(20px)", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+        <button onClick={() => scrollTo("hero")} className="font-display text-xl font-bold tracking-widest uppercase">
+          <span className="gradient-text">МП</span>
+          <span className="text-white/70 ml-2 text-sm font-body font-normal tracking-wide">Молодёжное пространство</span>
+        </button>
+        <div className="hidden md:flex items-center gap-8">
+          {[{ label: "О нас", id: "about" }, { label: "События", id: "events" }].map((item) => (
+            <button key={item.id} onClick={() => scrollTo(item.id)}
+              className="text-sm font-body text-white/60 hover:text-white transition-colors duration-200 tracking-wide">
+              {item.label}
+            </button>
+          ))}
+          <button onClick={() => scrollTo("events")}
+            className="px-5 py-2 rounded-full text-sm font-semibold text-black transition-all duration-200 hover:scale-105"
+            style={{ background: "var(--neon-orange)" }}>
+            Записаться
+          </button>
+        </div>
+        <button className="md:hidden text-white/70" onClick={() => setMenuOpen(!menuOpen)}>
+          <Icon name={menuOpen ? "X" : "Menu"} size={24} />
+        </button>
+      </nav>
+
+      {/* MOBILE MENU */}
+      {menuOpen && (
+        <div className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-8"
+          style={{ background: "rgba(8,8,8,0.97)", backdropFilter: "blur(20px)" }}>
+          {[{ label: "О нас", id: "about" }, { label: "События", id: "events" }].map((item) => (
+            <button key={item.id} onClick={() => scrollTo(item.id)}
+              className="font-display text-4xl font-bold uppercase tracking-widest gradient-text">
+              {item.label}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {/* HERO */}
+      <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0">
+          <img src={HERO_IMG} alt="Молодёжное пространство" className="w-full h-full object-cover" />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(8,8,8,0.5) 0%, rgba(8,8,8,0.7) 60%, rgba(8,8,8,1) 100%)" }} />
+        </div>
+
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full opacity-20 blur-3xl animate-float"
+          style={{ background: "var(--neon-orange)" }} />
+        <div className="absolute bottom-1/3 right-1/4 w-72 h-72 rounded-full opacity-15 blur-3xl animate-float"
+          style={{ background: "var(--neon-purple)", animationDelay: "1.5s" }} />
+
+        <div className="relative z-10 text-center px-6 max-w-5xl mx-auto" style={{ animation: "slideUp 0.9s ease forwards" }}>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8 text-sm font-semibold"
+            style={{ background: "rgba(255,107,0,0.15)", border: "1px solid rgba(255,107,0,0.4)", color: "var(--neon-orange)" }}>
+            <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: "var(--neon-orange)" }} />
+            Работаем ежедневно · 10:00 — 22:00
+          </div>
+
+          <h1 className="font-display text-6xl md:text-9xl font-bold uppercase tracking-tight leading-none mb-6">
+            <span className="gradient-text">Место,</span>
+            <br />
+            <span className="text-white">где всё</span>
+            <br />
+            <span className="gradient-text">начинается</span>
+          </h1>
+
+          <p className="font-body text-white/60 text-lg md:text-xl max-w-xl mx-auto mb-10 leading-relaxed">
+            Молодёжное пространство — живой хаб для творчества, спорта, общения и крутых событий твоего города
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <button onClick={() => scrollTo("events")}
+              className="px-8 py-4 rounded-full font-display font-bold text-lg uppercase tracking-wider text-black transition-all duration-200 hover:scale-105 neon-glow-orange"
+              style={{ background: "var(--neon-orange)" }}>
+              Все события
+            </button>
+            <button onClick={() => scrollTo("about")}
+              className="px-8 py-4 rounded-full font-display font-bold text-lg uppercase tracking-wider text-white transition-all duration-200 hover:scale-105 gradient-border">
+              О нас
+            </button>
+          </div>
+        </div>
+
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+          <Icon name="ChevronDown" size={28} className="text-white/30" />
+        </div>
+      </section>
+
+      {/* ABOUT */}
+      <section id="about" className="py-24 px-6 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-16 items-center">
+          <div>
+            <div className="text-sm font-semibold tracking-[0.3em] uppercase mb-4"
+              style={{ color: "var(--neon-orange)" }}>
+              О нас
+            </div>
+            <h2 className="font-display text-5xl md:text-6xl font-bold uppercase leading-tight mb-6 text-white">
+              Энергия.<br />Свобода.<br />
+              <span className="gradient-text">Движение.</span>
+            </h2>
+            <p className="font-body text-white/60 text-lg leading-relaxed mb-6">
+              Мы — живое пространство для тех, кто хочет действовать, а не просто наблюдать. Здесь встречаются музыканты и программисты, художники и спортсмены, волонтёры и предприниматели.
+            </p>
+            <p className="font-body text-white/50 text-base leading-relaxed mb-10">
+              Наша миссия — дать молодым людям площадку, ресурсы и сообщество, чтобы любая идея могла стать реальностью. Каждый день здесь что-то происходит.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              {["Коворкинг", "Сцена", "Спортзал", "Мастерская", "Кино", "Кафе"].map((tag) => (
+                <span key={tag} className="px-4 py-2 rounded-full text-sm font-semibold gradient-border text-white/80">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="relative">
+            <div className="absolute -top-6 -left-6 w-full h-full rounded-3xl opacity-30"
+              style={{ background: "linear-gradient(135deg, var(--neon-orange), var(--neon-purple))" }} />
+            <img src={EVENT_IMG} alt="Наши события" className="relative w-full h-80 md:h-96 object-cover rounded-3xl" />
+            <div className="absolute -bottom-6 -right-6 p-5 rounded-2xl"
+              style={{ background: "rgba(10,10,10,0.9)", border: "1px solid rgba(255,107,0,0.3)", backdropFilter: "blur(20px)" }}>
+              <div className="font-display text-3xl font-bold" style={{ color: "var(--neon-orange)" }}>3000+</div>
+              <div className="font-body text-white/60 text-sm mt-1">активных участников</div>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-3 gap-6 mt-20">
+          {ABOUT_STATS.map((stat) => (
+            <div key={stat.label} className="gradient-border rounded-2xl p-6 text-center">
+              <div className="font-display text-4xl md:text-5xl font-bold mb-2" style={{ color: stat.color }}>
+                {stat.value}
+              </div>
+              <div className="font-body text-white/50 text-sm">{stat.label}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* EVENTS */}
+      <section id="events" className="py-24 px-6 max-w-6xl mx-auto">
+        <div className="text-center mb-14">
+          <div className="text-sm font-semibold tracking-[0.3em] uppercase mb-4"
+            style={{ color: "var(--neon-purple)" }}>
+            Афиша
+          </div>
+          <h2 className="font-display text-5xl md:text-7xl font-bold uppercase text-white mb-4">
+            События мая
+          </h2>
+          <p className="font-body text-white/50 text-lg">Выбери своё — и приходи</p>
+        </div>
+
+        <div className="flex flex-wrap gap-3 justify-center mb-12">
+          {CATEGORIES.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              className="px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 hover:scale-105"
+              style={activeCategory === cat
+                ? { background: "var(--neon-purple)", color: "#fff" }
+                : { background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.6)", border: "1px solid rgba(255,255,255,0.1)" }}>
+              {cat}
+            </button>
+          ))}
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filtered.map((event) => (
+            <div key={event.id}
+              className="gradient-border rounded-2xl p-6 hover:scale-[1.02] transition-all duration-300 cursor-pointer group"
+              style={{ background: "rgba(255,255,255,0.03)" }}>
+              <div className="flex items-start justify-between mb-4">
+                <div className="text-4xl">{event.emoji}</div>
+                <span className="px-3 py-1 rounded-full text-xs font-semibold"
+                  style={{ background: `${event.color}22`, color: event.color, border: `1px solid ${event.color}44` }}>
+                  {event.category}
+                </span>
+              </div>
+
+              <h3 className="font-display text-xl font-bold uppercase text-white mb-2 leading-tight">
+                {event.title}
+              </h3>
+              <p className="font-body text-white/50 text-sm mb-5 leading-relaxed">{event.desc}</p>
+
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-1.5 text-sm" style={{ color: event.color }}>
+                    <Icon name="Calendar" size={14} />
+                    <span className="font-semibold">{event.date}</span>
+                  </div>
+                  <div className="flex items-center gap-1.5 text-sm text-white/40">
+                    <Icon name="Clock" size={14} />
+                    <span>{event.time}</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-1 text-xs text-white/30">
+                  <Icon name="Users" size={12} />
+                  <span>{event.seats} мест</span>
+                </div>
+              </div>
+
+              <button className="mt-5 w-full py-3 rounded-xl text-sm font-bold uppercase tracking-wider transition-all duration-200 hover:opacity-90"
+                style={{ background: `${event.color}22`, color: event.color, border: `1px solid ${event.color}44` }}>
+                Записаться →
+              </button>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-24 px-6">
+        <div className="max-w-4xl mx-auto text-center rounded-3xl p-12 relative overflow-hidden"
+          style={{ background: "linear-gradient(135deg, rgba(255,107,0,0.15), rgba(155,89,255,0.15))", border: "1px solid rgba(255,107,0,0.2)" }}>
+          <div className="absolute -top-20 -left-20 w-64 h-64 rounded-full blur-3xl opacity-20"
+            style={{ background: "var(--neon-orange)" }} />
+          <div className="absolute -bottom-20 -right-20 w-64 h-64 rounded-full blur-3xl opacity-15"
+            style={{ background: "var(--neon-purple)" }} />
+          <div className="relative z-10">
+            <div className="text-5xl mb-4">✨</div>
+            <h2 className="font-display text-4xl md:text-6xl font-bold uppercase text-white mb-4">
+              Стань частью<br />
+              <span className="gradient-text">движения</span>
+            </h2>
+            <p className="font-body text-white/50 text-lg mb-8 max-w-lg mx-auto">
+              Присоединяйся к тысячам молодых людей, которые уже нашли своё место здесь
+            </p>
+            <button onClick={() => scrollTo("events")}
+              className="px-10 py-4 rounded-full font-display font-bold text-xl uppercase tracking-wider text-black transition-all duration-200 hover:scale-105 neon-glow-orange"
+              style={{ background: "var(--neon-orange)" }}>
+              Выбрать событие
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="border-t py-10 px-6"
+        style={{ borderColor: "rgba(255,255,255,0.07)" }}>
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+          <div>
+            <div className="font-display text-xl font-bold gradient-text uppercase tracking-widest mb-1">
+              Молодёжное пространство
+            </div>
+            <div className="font-body text-white/30 text-sm">г. Ваш город · ул. Примерная, 1</div>
+          </div>
+          <div className="flex items-center gap-6">
+            {["ВКонтакте", "Telegram", "Instagram"].map((soc) => (
+              <a key={soc} href="#" className="font-body text-sm text-white/40 hover:text-white transition-colors duration-200">
+                {soc}
+              </a>
+            ))}
+          </div>
+          <div className="font-body text-white/20 text-sm">
+            © 2026 Все права защищены
+          </div>
+        </div>
+      </footer>
+
     </div>
   );
-};
-
-export default Index;
+}
