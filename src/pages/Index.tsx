@@ -94,6 +94,7 @@ const ABOUT_STATS = [
 export default function Index() {
   const [activeCategory, setActiveCategory] = useState("Все");
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showPhone, setShowPhone] = useState(false);
 
   const filtered = activeCategory === "Все"
     ? EVENTS
@@ -106,6 +107,32 @@ export default function Index() {
 
   return (
     <div className="noise-bg min-h-screen bg-background text-foreground overflow-x-hidden">
+
+      {/* PHONE MODAL */}
+      {showPhone && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center px-6"
+          style={{ background: "rgba(0,0,0,0.85)", backdropFilter: "blur(12px)" }}
+          onClick={() => setShowPhone(false)}>
+          <div className="relative text-center rounded-3xl p-10 max-w-sm w-full"
+            style={{ background: "rgba(18,18,18,0.98)", border: "1px solid rgba(255,107,0,0.3)" }}
+            onClick={(e) => e.stopPropagation()}>
+            <div className="text-5xl mb-4">🔥</div>
+            <div className="font-display text-3xl font-bold uppercase tracking-widest mb-2 gradient-text">
+              Дерзай!
+            </div>
+            <p className="font-body text-white/50 text-sm mb-6">Звони — мы ждём тебя!</p>
+            <a href="tel:89997811526"
+              className="block w-full py-4 rounded-2xl font-display text-2xl font-bold text-black tracking-wider neon-glow-orange transition-all duration-200 hover:scale-105"
+              style={{ background: "var(--neon-orange)" }}>
+              8 (999) 781-15-26
+            </a>
+            <button onClick={() => setShowPhone(false)}
+              className="mt-4 font-body text-white/30 text-sm hover:text-white/60 transition-colors">
+              закрыть
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* NAV */}
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4"
@@ -121,7 +148,7 @@ export default function Index() {
               {item.label}
             </button>
           ))}
-          <button onClick={() => scrollTo("events")}
+          <button onClick={() => setShowPhone(true)}
             className="px-5 py-2 rounded-full text-sm font-semibold text-black transition-all duration-200 hover:scale-105"
             style={{ background: "var(--neon-orange)" }}>
             Записаться
@@ -330,7 +357,8 @@ export default function Index() {
                 </div>
               </div>
 
-              <button className="mt-5 w-full py-3 rounded-xl text-sm font-bold uppercase tracking-wider transition-all duration-200 hover:opacity-90"
+              <button onClick={() => setShowPhone(true)}
+                className="mt-5 w-full py-3 rounded-xl text-sm font-bold uppercase tracking-wider transition-all duration-200 hover:opacity-90"
                 style={{ background: `${event.color}22`, color: event.color, border: `1px solid ${event.color}44` }}>
                 Записаться →
               </button>
