@@ -260,13 +260,13 @@ export default function Index() {
           </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-6 mt-20">
+        <div className="grid grid-cols-3 gap-4 mt-20">
           {ABOUT_STATS.map((stat) => (
-            <div key={stat.label} className="gradient-border rounded-2xl p-6 text-center">
-              <div className="font-display text-4xl md:text-5xl font-bold mb-2" style={{ color: stat.color }}>
+            <div key={stat.label} className="gradient-border rounded-2xl p-4 text-center overflow-hidden">
+              <div className="font-display text-3xl md:text-4xl font-bold mb-2 break-words" style={{ color: stat.color }}>
                 {stat.value}
               </div>
-              <div className="font-body text-white/50 text-sm">{stat.label}</div>
+              <div className="font-body text-white/50 text-xs md:text-sm leading-tight break-words">{stat.label}</div>
             </div>
           ))}
         </div>
