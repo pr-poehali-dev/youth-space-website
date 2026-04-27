@@ -414,12 +414,13 @@ export default function Index() {
               12:30 — 20:30
             </div>
           </div>
-          <div className="flex items-center gap-6">
-            {["ВКонтакте", "Telegram", "Instagram"].map((soc) => (
-              <a key={soc} href="#" className="font-body text-sm text-white/40 hover:text-white transition-colors duration-200">
-                {soc}
-              </a>
-            ))}
+          <div className="flex items-center gap-4">
+            <a href="https://t.me/Molodezhka250" target="_blank" rel="noopener noreferrer"
+              className="flex items-center gap-2 px-4 py-2 rounded-full font-body text-sm font-semibold transition-all duration-200 hover:scale-105"
+              style={{ background: "rgba(0,136,204,0.15)", color: "#29B6F6", border: "1px solid rgba(0,136,204,0.3)" }}>
+              <Icon name="Send" size={14} />
+              Telegram
+            </a>
           </div>
           <div className="font-body text-white/20 text-sm">
             © 2026 Все права защищены
