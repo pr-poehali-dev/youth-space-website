@@ -161,7 +161,7 @@ export default function Index() {
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8 text-sm font-semibold"
             style={{ background: "rgba(255,107,0,0.15)", border: "1px solid rgba(255,107,0,0.4)", color: "var(--neon-orange)" }}>
             <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: "var(--neon-orange)" }} />
-            Работаем ежедневно · 10:00 — 22:00
+            Работаем ежедневно · 12:30 — 20:30
           </div>
 
           <h1 className="font-display text-6xl md:text-9xl font-bold uppercase tracking-tight leading-none mb-6">
@@ -376,6 +376,14 @@ export default function Index() {
             <div className="flex items-center gap-1.5 font-body text-white/40 text-sm mt-1">
               <Icon name="MapPin" size={13} />
               г. Суворов, ул. Садовая, 5
+            </div>
+            <a href="tel:89997811526" className="flex items-center gap-1.5 font-body text-white/40 hover:text-white transition-colors text-sm mt-1">
+              <Icon name="Phone" size={13} />
+              8 (999) 781-15-26
+            </a>
+            <div className="flex items-center gap-1.5 font-body text-white/40 text-sm mt-1">
+              <Icon name="Clock" size={13} />
+              12:30 — 20:30
             </div>
           </div>
           <div className="flex items-center gap-6">
