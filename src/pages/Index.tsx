@@ -9,6 +9,9 @@ const GALLERY = [
   { url: "https://cdn.poehali.dev/projects/c53c6671-4310-44c2-a454-6b05e871f911/bucket/64da7180-1199-474f-8b8a-919bf3496b3e.jpeg", caption: "Голос поколения" },
   { url: "https://cdn.poehali.dev/projects/c53c6671-4310-44c2-a454-6b05e871f911/bucket/9db1eb82-aea7-472f-ba0c-48268b70532e.jpeg", caption: "Путешествие в мир сказок" },
   { url: "https://cdn.poehali.dev/projects/c53c6671-4310-44c2-a454-6b05e871f911/bucket/8c634609-5741-4f84-b319-c2c9fb4cb792.jpeg", caption: "Волонтёрство" },
+  { url: "https://cdn.poehali.dev/projects/c53c6671-4310-44c2-a454-6b05e871f911/bucket/a2b3878e-404c-4b68-9160-918171ba6aad.jpeg", caption: "День Победы" },
+  { url: "https://cdn.poehali.dev/projects/c53c6671-4310-44c2-a454-6b05e871f911/bucket/c4cfea52-a081-4506-ab69-b9369e3558bb.jpeg", caption: "Праздник для мам" },
+  { url: "https://cdn.poehali.dev/projects/c53c6671-4310-44c2-a454-6b05e871f911/bucket/27f8bf40-6fc6-4c66-bc98-1f4cda2f9e54.jpeg", caption: "Новогодний праздник" },
 ];
 
 const CATEGORIES = ["Все", "Мастер-классы", "Концерты", "Спорт", "Волонтёрство", "Образование"];
@@ -247,7 +250,7 @@ export default function Index() {
             style={{ color: "var(--neon-green)" }}>
             Наши моменты
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {GALLERY.map((photo, i) => (
               <div key={i} className="group relative overflow-hidden rounded-2xl aspect-square cursor-pointer">
                 <img
